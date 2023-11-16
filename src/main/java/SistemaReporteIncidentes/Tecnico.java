@@ -3,7 +3,7 @@ package SistemaReporteIncidentes;
 import lombok.Data;
 
 @Data
-public class Tecnico extends Tecnicos{
+public class Tecnico   {
    private int idTecnico;
    private String nombre;
    private int idMedioNotificacion ;

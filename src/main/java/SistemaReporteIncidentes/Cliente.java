@@ -1,6 +1,8 @@
 package SistemaReporteIncidentes;
 
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -19,6 +21,6 @@ public class Cliente {
      ArrayList<String> lista = servicio.serviciosDisponibles();
      return null;
  }
-
+ 
 
 }

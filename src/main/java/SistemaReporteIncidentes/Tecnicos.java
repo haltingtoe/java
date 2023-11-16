@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public abstract  class Tecnicos {
+public  class    Tecnicos {
 
     private List<String> areas;
     private List<String> tecnicosActivos;
