@@ -5,15 +5,14 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="problema")
-public class Problema {
+@Table(name="medionotificacion")
+public class MedioNotificacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idProblema;
+    private int idMedioNotificacion;
 
     @Basic
-    private String tipoProblema;
-    private int horasEstimadas;
+    private String descripcion;
     private boolean estado;
-
 }
+

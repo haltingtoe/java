@@ -15,10 +15,6 @@ public class Main {
             em.getTransaction().begin();
 
 
-            //Especialidad esp = new Especialidad();
-            //esp.setNombre("Tecnico en conexiones");
-
-            //em.persist(esp);
 
             em.getTransaction().commit();
         }finally {
