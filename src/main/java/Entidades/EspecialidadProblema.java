@@ -1,9 +1,9 @@
-package SistemaReporteIncidentes;
+package Entidades;
 
 import lombok.Data;
 
 @Data
-public class EspecialidadProblema extends Problema {
+public class EspecialidadProblema {
     int idEspecialidadProblema;
     int idProblema;
     int idEspecialidad;

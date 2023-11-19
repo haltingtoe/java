@@ -1,4 +1,4 @@
-package SistemaReporteIncidentes;
+package Entidades;
 
 import lombok.Data;
 
