@@ -1,4 +1,4 @@
-package Entidades;
+package sistema.Entidades;
 
 import jakarta.persistence.*;
 import lombok.Data;

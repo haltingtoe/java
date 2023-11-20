@@ -1,18 +1,19 @@
-package Entidades;
+package sistema.Entidades;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name="medionotificacion")
-public class MedioNotificacion {
+@Table(name="problema")
+public class Problema {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idMedioNotificacion;
+    private int idProblema;
 
     @Basic
-    private String descripcion;
+    private String tipoProblema;
+    private int horasEstimadas;
     private boolean estado;
-}
 
+}
