@@ -1,24 +1,38 @@
 
+import com.mysql.cj.x.protobuf.MysqlxCrud;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import sistema.entities.Cliente;
+import sistema.entities.Servicio;
+import sistema.repositories.ClienteRepository;
+import sistema.repositories.ServicioRepository;
+
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_PU");
+        ServicioRepository sr = new ServicioRepository();
 
-        EntityManager em = emf.createEntityManager();
+        Servicio servicio = new Servicio();
+        servicio.setNombre("Ubuntu");
+        servicio.setEstado(true);
 
-        try {
-            em.getTransaction().begin();
+        //sr.create(servicio);
 
+        ClienteRepository cr = new ClienteRepository();
 
+        Cliente cliente = new Cliente();
+        cliente.setRazonSocial("Fernando");
+        cliente.setEstado(true);
+        List list = sr.findServicioEntities();
+        cliente.setServicios(list);
 
-            em.getTransaction().commit();
-        }finally {
-            em.close();
-        }
+        cliente.getServicios().forEach(System.out::println);
+
+        cr.create(cliente);
+
     }
 }
