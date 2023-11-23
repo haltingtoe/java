@@ -3,23 +3,28 @@ package sistema.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @Entity
-@Table(name="tecnico")
-public class Tecnico {
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private int idTecnico;
+@Table(name = "tecnico")
+public class Tecnico implements Serializable {
 
-   @ManyToOne
-   @JoinColumn(name = "idEspecialidad")
-   private Especialidad especialidad;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idTecnico;
 
-   @ManyToOne
-   @JoinColumn(name = "idMedioNotificacion")
-   private MedioNotificacion medioNotificacion;
+    @ManyToOne
+    @JoinColumn(name = "idEspecialidad")
+    private Especialidad especialidad;
 
-   @Basic
-   private String nombre;
-   private boolean estado;
+    @ManyToOne
+    @JoinColumn(name = "idMedioNotificacion")
+    private MedioNotificacion medioNotificacion;
+
+    @Basic
+    private String nombre;
+
+    private boolean estado;
+
 }

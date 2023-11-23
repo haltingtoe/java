@@ -117,5 +117,4 @@ public class IncidenteRepository implements Serializable {
         }
     }
 
-
 }

@@ -3,10 +3,12 @@ package sistema.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Entity
 @Data
-@Table(name="especialidadproblema")
-public class EspecialidadProblema {
+@Table(name = "especialidadproblema")
+public class EspecialidadProblema implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

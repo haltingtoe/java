@@ -3,12 +3,14 @@ package sistema.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Data
 @Table(name = "especialidad")
-public class Especialidad {
+public class Especialidad implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idEspecialidad;
@@ -24,4 +26,5 @@ public class Especialidad {
     @Basic
     private String descripcion;
     private boolean estado;
+
 }
