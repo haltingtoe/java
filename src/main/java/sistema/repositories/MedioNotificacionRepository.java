@@ -3,21 +3,20 @@ package sistema.repositories;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import sistema.entities.Cliente;
+import sistema.entities.MedioNotificacion;
 import sistema.exceptions.NonexistentEntityException;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class ClienteRepository implements Serializable {
+public class MedioNotificacionRepository {
 
     private EntityManagerFactory emf = null;
 
-    public ClienteRepository() {
+    public MedioNotificacionRepository() {
         emf = Persistence.createEntityManagerFactory("JPA_PU");
     }
 
-    public ClienteRepository(EntityManagerFactory emf) {
+    public MedioNotificacionRepository(EntityManagerFactory emf) {
         this.emf = emf;
     }
 
@@ -25,12 +24,12 @@ public class ClienteRepository implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Cliente cliente) {
+    public void create(MedioNotificacion medioNotificacion) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(cliente);
+            em.persist(medioNotificacion);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -39,19 +38,19 @@ public class ClienteRepository implements Serializable {
         }
     }
 
-    public void edit(Cliente cliente) throws NonexistentEntityException, Exception {
+    public void edit(MedioNotificacion medioNotificacion) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            cliente = em.merge(cliente);
+            medioNotificacion = em.merge(medioNotificacion);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = cliente.getIdCliente();
-                if (findCliente(id) == null) {
-                    throw new NonexistentEntityException("The cliente with id " + id + " no longer exists.");
+                int id = medioNotificacion.getIdMedioNotificacion();
+                if (findMedioNotificacion(id) == null) {
+                    throw new NonexistentEntityException("The medioNotificacion with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -67,14 +66,14 @@ public class ClienteRepository implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Cliente cliente;
+            MedioNotificacion medioNotificacion;
             try {
-                cliente = em.getReference(Cliente.class, id);
-                cliente.getIdCliente();
+                medioNotificacion = em.getReference(MedioNotificacion.class, id);
+                medioNotificacion.getIdMedioNotificacion();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The cliente with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The medioNotificacion with id " + id + " no longer exists.", enfe);
             }
-            em.remove(cliente);
+            em.remove(medioNotificacion);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -83,11 +82,11 @@ public class ClienteRepository implements Serializable {
         }
     }
 
-    public List<Cliente> findClienteEntities() {
+    public List<MedioNotificacion> findMedioNotificacionEntities() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Cliente.class));
+            cq.select(cq.from(MedioNotificacion.class));
             Query q = em.createQuery(cq);
             return q.getResultList();
         } finally {
@@ -95,20 +94,20 @@ public class ClienteRepository implements Serializable {
         }
     }
 
-    public Cliente findCliente(int id) {
+    public MedioNotificacion findMedioNotificacion(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Cliente.class, id);
+            return em.find(MedioNotificacion.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getClienteCount() {
+    public int getMedioNotificacionCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Cliente> rt = cq.from(Cliente.class);
+            Root<MedioNotificacion> rt = cq.from(MedioNotificacion.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -116,6 +115,5 @@ public class ClienteRepository implements Serializable {
             em.close();
         }
     }
+
 }
-
-

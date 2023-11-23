@@ -25,7 +25,7 @@ public class Main {
         ClienteRepository cr = new ClienteRepository();
 
         Cliente cliente = new Cliente();
-        cliente.setRazonSocial("Fernando");
+        cliente.setRazonSocial("Roberto");
         cliente.setEstado(true);
         List list = sr.findServicioEntities();
         cliente.setServicios(list);

@@ -3,21 +3,21 @@ package sistema.repositories;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import sistema.entities.Cliente;
+import sistema.entities.Incidente;
 import sistema.exceptions.NonexistentEntityException;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class ClienteRepository implements Serializable {
+public class IncidenteRepository implements Serializable {
 
     private EntityManagerFactory emf = null;
 
-    public ClienteRepository() {
+    public IncidenteRepository() {
         emf = Persistence.createEntityManagerFactory("JPA_PU");
     }
 
-    public ClienteRepository(EntityManagerFactory emf) {
+    public IncidenteRepository(EntityManagerFactory emf) {
         this.emf = emf;
     }
 
@@ -25,12 +25,12 @@ public class ClienteRepository implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Cliente cliente) {
+    public void create(Incidente incidente) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(cliente);
+            em.persist(incidente);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -39,19 +39,19 @@ public class ClienteRepository implements Serializable {
         }
     }
 
-    public void edit(Cliente cliente) throws NonexistentEntityException, Exception {
+    public void edit(Incidente incidente) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            cliente = em.merge(cliente);
+            incidente = em.merge(incidente);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = cliente.getIdCliente();
-                if (findCliente(id) == null) {
-                    throw new NonexistentEntityException("The cliente with id " + id + " no longer exists.");
+                int id = incidente.getIdIncidente();
+                if (findIncidente(id) == null) {
+                    throw new NonexistentEntityException("The incidente with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -67,14 +67,14 @@ public class ClienteRepository implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Cliente cliente;
+            Incidente incidente;
             try {
-                cliente = em.getReference(Cliente.class, id);
-                cliente.getIdCliente();
+                incidente = em.getReference(Incidente.class, id);
+                incidente.getIdIncidente();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The cliente with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The incidente with id " + id + " no longer exists.", enfe);
             }
-            em.remove(cliente);
+            em.remove(incidente);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -83,11 +83,11 @@ public class ClienteRepository implements Serializable {
         }
     }
 
-    public List<Cliente> findClienteEntities() {
+    public List<Incidente> findIncidenteEntities() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Cliente.class));
+            cq.select(cq.from(Incidente.class));
             Query q = em.createQuery(cq);
             return q.getResultList();
         } finally {
@@ -95,20 +95,20 @@ public class ClienteRepository implements Serializable {
         }
     }
 
-    public Cliente findCliente(int id) {
+    public Incidente findIncidente(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Cliente.class, id);
+            return em.find(Incidente.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getClienteCount() {
+    public int getIncidenteCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Cliente> rt = cq.from(Cliente.class);
+            Root<Incidente> rt = cq.from(Incidente.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -116,6 +116,6 @@ public class ClienteRepository implements Serializable {
             em.close();
         }
     }
+
+
 }
-
-
